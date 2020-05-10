@@ -4,8 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 // entity is something who will be saved in DB.
+
+import User from './User';
 
 // models fica com a responsabilidade de cuidar de um modelo de dados para informacao
 @Entity('appointments')
@@ -14,7 +18,11 @@ class Appointment {
   id: string;
 
   @Column('varchar')
-  provider: string;
+  provider_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User;
 
   @Column('timestamp with time zone')
   date: Date;
@@ -23,7 +31,7 @@ class Appointment {
   created_at: Date;
 
   @UpdateDateColumn()
-  update_at: Date;
+  updated_at: Date;
 
   // Omit pega o tipo de variavel que quero usar e 'exclui'
   // alguma propriedade que eu nao quero que apareca.

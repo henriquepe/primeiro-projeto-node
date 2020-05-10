@@ -4,7 +4,7 @@ import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 interface Request {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
@@ -12,7 +12,7 @@ interface Request {
 class CreateAppointmentService {
   // funcao execute => ira executar a regra do negocio.
   // funcao recebe como parametro provider e date tipado na interface Request que possui tipo Appointment.
-  public async execute({ date, provider }: Request): Promise<Appointment> {
+  public async execute({ date, provider_id }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     // convertendo a o horario em hora com minutos e segundos zerados.
@@ -32,7 +32,7 @@ class CreateAppointmentService {
     }
 
     const appointment = appointmentsRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
 
